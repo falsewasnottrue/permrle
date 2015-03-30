@@ -5,9 +5,18 @@ object PermRLE extends App {
   println("Hallo Welt!")
 
   val s = "aabcaaaa"
-  val e = encode(s)
+  val e = encode(s.toCharArray.toList)
   println(e.size)
 
-  def encode(s: String): List[(Char, Int)] =
-    s.groupBy(c => c).map(x => (x._1, x._2.le))
+  def pack[A](ls: List[A]): List[List[A]] = {
+    if (ls.isEmpty) List(List())
+    else {
+      val (packed, next) = ls span { _ == ls.head }
+      if (next == Nil) List(packed)
+      else packed :: pack(next)
+    }
+  }
+
+  def encode[A](ls: List[A]): List[(A, Int)] =
+    pack(ls) map { e => (e.head, e.length) }
 }
