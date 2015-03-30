@@ -4,17 +4,25 @@ object PermRLE extends App {
 
   println("Hallo Welt!")
 
-  val s = "abcdabcd".toCharArray.toList
-  val k = 4
-  val l = Range(0, k).toList.permutations
-  while (l.hasNext) {
-    val p = l.next
-    println(p + ": " + permutate(s, p))
+//  val s = "abcdabcd".toCharArray.toList
+//  val k = 4
+//  val l = Range(0, k).toList.permutations
+//  while (l.hasNext) {
+//    val p = l.next
+//    println(p + ": " + permutate(s, p))
+//  }
+//
+////  val e = encode(s)
+////  println(e.size)
+
+  val s = "abcabcabcabc".toCharArray.toList
+  val k = 3
+  println(minPermRLE(k, s))
+
+  def minPermRLE[A](k: Int, ls: List[A]): Int = {
+    val l = Range(0, k).toList.permutations
+    l.map(p => encode(permutate(ls, p)).size).min
   }
-
-//  val e = encode(s)
-//  println(e.size)
-
 
   def permutate[A](ls: List[A], p: List[Int]): List[A] =
     ls.grouped(p.size).map(b => permBlock(b,p)).flatten.toList
