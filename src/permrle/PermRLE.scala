@@ -2,22 +2,16 @@ package permrle
 
 object PermRLE extends App {
 
-  println("Hallo Welt!")
+  import scala.io.Source
+  val lines = Source.fromFile("src/permrle/D-small-practice.in").getLines
+  lines.next // drop #cases
+  var c = 1
+  while (lines.hasNext) {
+    val k = lines.next.toInt
+    val s = lines.next.toCharArray.toList
 
-//  val s = "abcdabcd".toCharArray.toList
-//  val k = 4
-//  val l = Range(0, k).toList.permutations
-//  while (l.hasNext) {
-//    val p = l.next
-//    println(p + ": " + permutate(s, p))
-//  }
-//
-////  val e = encode(s)
-////  println(e.size)
-
-  val s = "abcabcabcabc".toCharArray.toList
-  val k = 3
-  println(minPermRLE(k, s))
+    println("Case #" + c + ": " + minPermRLE(k, s))
+  }
 
   def minPermRLE[A](k: Int, ls: List[A]): Int = {
     val l = Range(0, k).toList.permutations
